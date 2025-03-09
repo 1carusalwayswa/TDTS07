@@ -1,20 +1,21 @@
 #include "car_monitor.h"
 
-CarMonitor::CarMonitor(sc_module_name name, char *datafile)
+CarMonitor::CarMonitor(sc_module_name name, sc_event* car_comming_event_ptr_, char *datafile)
   : sc_module(name),
     gen(std::random_device{}()),
-    distrib(0, 3)
+    distrib(0, 3),
+    car_comming_event_ptr(car_comming_event_ptr_)
 {
-    NS.initialize(0);
-    SN.initialize(0);
-    WE.initialize(0);
-    EW.initialize(0);
+    NS_car_comming.initialize(0);
+    SN_car_comming.initialize(0);
+    WE_car_comming.initialize(0);
+    EW_car_comming.initialize(0);
 
     SC_THREAD(car_monitor_thread);
 
     use_random = (datafile != nullptr) ? (in = new ifstream(datafile), false)
                                      : true;
-};
+}
 
 CarMonitor::~CarMonitor()
 {
@@ -31,28 +32,23 @@ void CarMonitor::car_monitor_thread() {
     for (;;) {
         wait(1, SC_SEC);
         int cur_num = -1;
+        int ns_car_comming, sn_car_comming, we_car_comming, ew_car_comming;
         if (use_random) {
-            cur_num = get_random_num();
+            ns_car_comming = get_random_num();
+            sn_car_comming = get_random_num();
+            we_car_comming = get_random_num();
+            ew_car_comming = get_random_num();
         } else {
-            *in >> cur_num;
+            *in >> ns_car_comming >> sn_car_comming >> we_car_comming >> ew_car_comming;
         }
 
-        if (cur_num == 0) {
-            NS = 1;
-            std::cout << "Now direction: " << "NS" << std::endl;
-            SN = WE = EW = 0;
-        } else if (cur_num == 1) {
-            SN = 1;
-            std::cout << "Now direction: " << "SN" << std::endl;
-            NS = WE = EW = 0;
-        } else if (cur_num == 2) {
-            WE = 1;
-            std::cout << "Now direction: " << "WE" << std::endl;
-            NS = SN = EW = 0;
-        } else if (cur_num == 3) {
-            EW = 1;
-            std::cout << "Now direction: " << "EW" << std::endl;
-            NS = SN = WE = 0;
-        }
+        NS_car_comming -> write(ns_car_comming);
+        SN_car_comming -> write(sn_car_comming);
+        WE_car_comming -> write(we_car_comming);
+        EW_car_comming -> write(ew_car_comming);
+        std::cout << sc_time_stamp() << " car: " << ns_car_comming << " " << sn_car_comming 
+                                     << " " << we_car_comming << " " << ew_car_comming << std::endl;
+
+                                     car_comming_event_ptr->notify(SC_ZERO_TIME);  // Add a delta cycle delay
     }
 }

@@ -2,7 +2,7 @@
 PROGRAM = car_monitor.x
 
 # The source files (*.cc)
-SRCS = car_monitor.cc car_monitor_testbench.cc
+SRCS = car_monitor.cc car_monitor_testbench.cc traffic_light_server.cc traffic_light_monitor.cc
 
 ##################################
 ## DO NOT CHANGE ANYTHING BELOW ##

@@ -39,9 +39,6 @@ SC_MODULE(TrafficLightServer) {
     bool now_green_direction;
     int keeping_time;
 
-    // from lower to higher, is NS, SN, WE, EW
-    char traffic_light_status;
-
     sc_event* car_comming_event_ptr;
 };
 

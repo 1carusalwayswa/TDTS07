@@ -15,7 +15,6 @@ TrafficLightServer::TrafficLightServer(sc_module_name name, sc_event* car_commin
     EW_waiting_time(0),
     now_green_direction(false),
     keeping_time(0),
-    traffic_light_status(0),
     car_comming_event_ptr(car_comming_event_ptr_)
 {
     NS_traffic_light.initialize(false);

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?><!DOCTYPE nta PUBLIC '-//Uppaal Team//DTD Flat System 1.1//EN' 'http://www.it.uu.se/research/group/darts/uppaal/flat-1_1.dtd'><nta><declaration>// Place global declarations here.
+int[0, 1] req1, req2;
+int[1, 2] turn;
+</declaration><template><name x="5" y="5">mutex</name><parameter>const int[1,2] me, int[0, 1] &amp;req_self, int[0, 1] &amp;req_other</parameter><declaration>// Place local declarations here.
+</declaration><location id="id0" x="48" y="72"><name x="64" y="64">wait</name></location><location id="id1" x="-152" y="72"><name x="-184" y="64">CS</name></location><location id="id2" x="48" y="-88"><name x="38" y="-118">want</name></location><location id="id3" x="-152" y="-88"><name x="-162" y="-118">idle</name></location><init ref="id3"/><transition><source ref="id0"/><target ref="id1"/><label kind="guard" x="-96" y="0">turn == me</label><nail x="0" y="24"/><nail x="-96" y="24"/></transition><transition><source ref="id0"/><target ref="id1"/><label kind="guard" x="-104" y="136">req_other == 0</label><nail x="0" y="128"/><nail x="-96" y="128"/></transition><transition><source ref="id1"/><target ref="id3"/><label kind="assignment" x="-248" y="-16">req_self:=0</label></transition><transition><source ref="id2"/><target ref="id0"/><label kind="assignment" x="56" y="-24">turn:=(me == 1 ? 2 : 1)</label></transition><transition><source ref="id3"/><target ref="id2"/><label kind="assignment" x="-112" y="-88">req_self:=1</label></transition></template><system>// Place template instantiations here.
+P1 = mutex(1, req1, req2);
+P2 = mutex(2, req2, req1);
+
+// List one or more processes to be composed into a system.
+system P1, P2;</system></nta>

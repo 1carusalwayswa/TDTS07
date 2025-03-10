@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?><!DOCTYPE nta PUBLIC '-//Uppaal Team//DTD Flat System 1.1//EN' 'http://www.it.uu.se/research/group/darts/uppaal/flat-1_1.dtd'><nta><declaration>// Place global declarations here.
+clock x;
+chan reset;</declaration><template><name x="5" y="5">P1</name><declaration>// Place local declarations here.
+</declaration><location id="id0" x="8" y="-48"><name x="-40" y="-40">loop</name><label kind="invariant" x="-2" y="-33">x &lt;= 3</label></location><init ref="id0"/><transition><source ref="id0"/><target ref="id0"/><label kind="guard" x="72" y="-64">x &gt;= 2</label><label kind="synchronisation" x="72" y="-40">reset!</label><nail x="64" y="-120"/><nail x="64" y="24"/></transition></template><template><name>Obs</name><location id="id1" x="-216" y="-184"><name x="-200" y="-216">taken</name><committed/></location><location id="id2" x="-432" y="-184"><name x="-472" y="-216">idle</name></location><init ref="id2"/><transition><source ref="id1"/><target ref="id2"/><label kind="assignment" x="-344" y="-120">x:=0</label><nail x="-240" y="-120"/><nail x="-400" y="-120"/></transition><transition><source ref="id2"/><target ref="id1"/><label kind="guard" x="-360" y="-312">x == x</label><label kind="synchronisation" x="-360" y="-288">reset?</label><nail x="-400" y="-264"/><nail x="-248" y="-264"/></transition></template><system>// Place template instantiations here.
+p1 = P1();
+obs = Obs();
+
+
+// List one or more processes to be composed into a system.
+system p1, obs;</system></nta>

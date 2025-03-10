@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?><!DOCTYPE nta PUBLIC '-//Uppaal Team//DTD Flat System 1.1//EN' 'http://www.it.uu.se/research/group/darts/uppaal/flat-1_1.dtd'><nta><declaration>// Place global declarations here.
+int NS_car = 3;
+int SN_car = 2;
+int WE_car = 1;
+int EW_car = 2;
+
+int now_direction;</declaration><template><name x="5" y="5">traffic_light_controller</name><parameter>int&amp; self_car, int&amp; near_car, int&amp; vertical_car_1, int&amp; vertical_car_2, int direction</parameter><declaration>// Place local declarations here.
+
+int local_light_on;</declaration><location id="id0" x="-832" y="-144"></location><location id="id1" x="-1024" y="-144"></location><location id="id2" x="-832" y="-280"></location><location id="id3" x="-1024" y="-280"></location><init ref="id3"/><transition><source ref="id2"/><target ref="id0"/><label kind="guard" x="-824" y="-232">self_car + near_car &gt;= vertical_car_1 + vertical_car_2</label><label kind="assignment" x="-824" y="-208">now_direction += direction</label></transition><transition><source ref="id3"/><target ref="id2"/><label kind="guard" x="-1056" y="-312">self_car &gt; 0 and now_direction == 0</label></transition><transition><source ref="id1"/><target ref="id3"/><label kind="assignment" x="-1304" y="-224">local_light_on = 0, self_car -= 1, now_direction -= direction</label></transition><transition><source ref="id0"/><target ref="id1"/><label kind="guard" x="-1016" y="-176">now_direction == direction * 2 or now_direction == direction</label><label kind="assignment" x="-984" y="-136">local_light_on = 1</label></transition></template><system>// Place template instantiations here.
+P1 = traffic_light_controller(NS_car, SN_car, WE_car, EW_car, 1);
+P2 = traffic_light_controller(SN_car, NS_car, WE_car, EW_car, 1);
+P3 = traffic_light_controller(WE_car, EW_car, NS_car, SN_car, 3);
+P4 = traffic_light_controller(EW_car, WE_car, NS_car, SN_car, 3);
+
+// List one or more processes to be composed into a system.
+system P1, P2, P3, P4;</system></nta>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?><!DOCTYPE nta PUBLIC '-//Uppaal Team//DTD Flat System 1.1//EN' 'http://www.it.uu.se/research/group/darts/uppaal/flat-1_1.dtd'><nta><declaration>// Place global declarations here.
+</declaration><template><name x="5" y="5">Template</name><declaration>// Place local declarations here.
+int NS_car_amount = 3;
+int SN_car_amount = 2;
+int WE_car_amount = 1;
+int EW_car_amount = 2;
+
+int NS_light;
+int SN_light;
+int WE_light;
+int EW_light;
+
+
+</declaration><location id="id0" x="-616" y="-8"></location><location id="id1" x="-472" y="-152"></location><location id="id2" x="-568" y="-152"></location><location id="id3" x="-696" y="-152"></location><location id="id4" x="-784" y="-152"></location><location id="id5" x="-528" y="-256"></location><location id="id6" x="-744" y="-264"></location><location id="id7" x="-632" y="-400"></location><location id="id8" x="-1272" y="-400"></location><init ref="id8"/><transition><source ref="id0"/><target ref="id8"/><label kind="assignment" x="-1240" y="-40">NS_light = SN_light = WE_light = EW_light = 0</label><nail x="-1272" y="-8"/></transition><transition><source ref="id1"/><target ref="id0"/><label kind="assignment" x="-568" y="-64">EW_car_amount = EW_car_amount - 1, EW_light = 1</label></transition><transition><source ref="id2"/><target ref="id0"/><label kind="assignment" x="-616" y="-104">WE_car_amount = WE_car_amount -1, WE_light = 1</label></transition><transition><source ref="id3"/><target ref="id0"/><label kind="assignment" x="-808" y="-128">SN_car_amount = SN_car_amount -1, SN_light = 1</label></transition><transition><source ref="id4"/><target ref="id0"/><label kind="assignment" x="-992" y="-88">NS_car_amount = NS_car_amount - 1, NS_light = 1</label></transition><transition><source ref="id5"/><target ref="id1"/><label kind="guard" x="-496" y="-232">EW_car_amount &gt; 0</label></transition><transition><source ref="id5"/><target ref="id2"/><label kind="guard" x="-696" y="-208">WE_car_amount &gt; 0</label></transition><transition><source ref="id6"/><target ref="id3"/><label kind="guard" x="-720" y="-232">SN_car_amount &gt; 0</label></transition><transition><source ref="id6"/><target ref="id4"/><label kind="guard" x="-920" y="-240">NS_car_amount &gt; 0</label></transition><transition><source ref="id7"/><target ref="id5"/><label kind="guard" x="-592" y="-352">NS_car_amount+SN_car_amount &lt;= WE_car_amount + EW_car_amount</label></transition><transition><source ref="id7"/><target ref="id6"/><label kind="guard" x="-1208" y="-344">NS_car_amount + SN_car_amount &gt; WE_car_amount + EW_car_amount</label></transition><transition><source ref="id8"/><target ref="id7"/><label kind="guard" x="-952" y="-424">NS_car_amount &gt; 0 or SN_car_amount &gt; 0 or WE_car_amount &gt; 0 or EW_car_amount &gt; 0</label></transition></template><system>// Place template instantiations here.
+Process = Template();
+
+// List one or more processes to be composed into a system.
+system Process;</system></nta>
